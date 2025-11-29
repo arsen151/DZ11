@@ -1,0 +1,124 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+abstract class User {
+  +id: int
+  +name: string
+  +email: string
+  +phone: string
+  +address: string
+  +role: string
+  +register()
+  +login()
+  +updateProfile()
+}
+
+class Customer {
+  +loyaltyPoints: int
+  +orderHistory: List<Order>
+  +addToCart()
+  +placeOrder()
+  +applyPromoCode()
+}
+
+class Admin {
+  +logHistory: List<LogRecord>
+  +createProduct()
+  +updateProduct()
+  +deleteProduct()
+  +viewLogs()
+}
+
+class Product {
+  +id: int
+  +name: string
+  +description: string
+  +price: float
+  +stock: int
+  +images: List<string>
+  +create()
+  +update()
+  +delete()
+  +applyDiscount()
+}
+
+class Category {
+  +id: int
+  +name: string
+  +addProduct()
+  +removeProduct()
+}
+
+class Order {
+  +id: int
+  +dateCreated: Date
+  +status: string
+  +totalAmount: float
+  +create()
+  +cancel()
+  +pay()
+  +calculateTotal()
+}
+
+class OrderItem {
+  +quantity: int
+  +price: float
+}
+
+class Payment {
+  +id: int
+  +type: string
+  +amount: float
+  +status: string
+  +process()
+  +refund()
+}
+
+class Delivery {
+  +id: int
+  +address: string
+  +status: string
+  +courier: string
+  +send()
+  +track()
+  +complete()
+}
+
+class Review {
+  +rating: int
+  +comment: string
+}
+
+class Discount {
+  +percent: float
+  +active: bool
+}
+
+class PromoCode {
+  +code: string
+  +discountAmount: float
+  +expirationDate: Date
+}
+
+class LoyaltyProgram {
+  +addPoints()
+  +redeemPoints()
+}
+
+User <|-- Customer
+User <|-- Admin
+
+Customer "1" --> "*" Order
+Order "*" --> "1" OrderItem
+OrderItem "*" --> "1" Product
+Product "*" --> "1" Category
+
+Order "1" --> "1" Payment
+Order "1" --> "1" Delivery
+
+Customer "1" --> "*" Review
+Product "1" --> "*" Review
+
+Customer "1" --> "*" PromoCode
+
+@enduml
