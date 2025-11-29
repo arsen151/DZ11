@@ -1,0 +1,25 @@
+@startuml
+skinparam componentStyle rectangle
+
+component Frontend
+component Backend
+component Database
+component "Route Optimization Module" as Route
+component "Courier Integration" as CourierAPI
+component "Warehouse Module" as Warehouse
+component "Notifications" as Notify
+component "Analytics" as Analytics
+component "External Courier Services" as External
+
+Frontend --> Backend : REST API / WebSocket
+Backend --> Database : SQL / ORM
+
+Backend --> Route : Routing API
+Backend --> Warehouse : Inventory API
+Backend --> Notify : Notification API
+Backend --> Analytics : Report API
+Backend --> CourierAPI : Courier API
+
+CourierAPI --> External : Webhooks / REST
+
+@enduml
